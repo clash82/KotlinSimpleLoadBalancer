@@ -1,5 +1,3 @@
-import java.util.*
-
 // host
 
 class Host(private var load: Int, private val name: String) : IHost {
