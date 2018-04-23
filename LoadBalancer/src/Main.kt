@@ -99,7 +99,6 @@ class LoadBalancer(private val loadBalancingAlgorithm: ILoadBalancingAlgorithm) 
     }
 }
 
-
 // main
 
 fun test(loadBalancer: ILoadBalancer) {
@@ -117,8 +116,10 @@ fun main(args: Array<String>) {
             Host(11, "host3")
     )
 
+    println("BEFORE LowLoad:")
     hosts.forEach { println("name ${it.getName()}, load ${it.getLoad()}") }
     test(LoadBalancer(LowLoad(hosts, 7)))
+    println("AFTER LowLoad:")
     hosts.forEach { println("name ${it.getName()}, load ${it.getLoad()}") }
 
     // FIXME: https://stackoverflow.com/a/40574998/2065587
