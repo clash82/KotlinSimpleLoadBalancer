@@ -107,6 +107,17 @@ fun test(loadBalancer: ILoadBalancer) {
 
         println("name: ${host.getName()}, load: ${host.getLoad()}")
     } while (host.getLoad() > 0)
+
+    println()
+}
+
+fun list(message: String, hosts: Array<IHost>) {
+    println(message)
+    hosts.forEach {
+        println("name ${it.getName()}, load ${it.getLoad()}")
+    }
+
+    println()
 }
 
 fun main(args: Array<String>) {
@@ -116,11 +127,9 @@ fun main(args: Array<String>) {
             Host(11, "host3")
     )
 
-    println("BEFORE LowLoad:")
-    hosts.forEach { println("name ${it.getName()}, load ${it.getLoad()}") }
+    list("Hosts before balancing:", hosts)
     test(LoadBalancer(LowLoad(hosts, 7)))
-    println("AFTER LowLoad:")
-    hosts.forEach { println("name ${it.getName()}, load ${it.getLoad()}") }
+    list("Hosts after balancing:", hosts)
 
     // FIXME: https://stackoverflow.com/a/40574998/2065587
     val hosts2: Array<IHost> = arrayOf(
@@ -129,5 +138,7 @@ fun main(args: Array<String>) {
             Host(11, "host3")
     )
 
+    list("Hosts before balancing:", hosts2)
     test(LoadBalancer(RoundRobin(hosts2)))
+    list("Hosts after balancing:", hosts2)
 }
